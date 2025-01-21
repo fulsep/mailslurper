@@ -3,7 +3,7 @@ FROM golang:1.18.1-alpine3.15 as builder
 LABEL maintainer="erguotou525@gmail.compute"
 
 RUN apk --no-cache add git libc-dev gcc
-RUN go install github.com/mjibson/esc@latest # TODO: Consider using native file embedding
+RUN go install github.com/maddyblue/esc@latest # TODO: Consider using native file embedding
 
 COPY . /go/src/github.com/mailslurper/mailslurper
 WORKDIR /go/src/github.com/mailslurper/mailslurper/cmd/mailslurper
