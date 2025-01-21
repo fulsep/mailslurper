@@ -1,9 +1,9 @@
-FROM golang:1.18.1-alpine3.15 as builder
+FROM golang:1.22.11-alpine3.21 AS builder
 
 LABEL maintainer="erguotou525@gmail.compute"
 
 RUN apk --no-cache add git libc-dev gcc
-RUN go install github.com/maddyblue/esc@latest # TODO: Consider using native file embedding
+RUN go install github.com/mjibson/esc@latest # TODO: Consider using native file embedding
 
 COPY . /go/src/github.com/mailslurper/mailslurper
 WORKDIR /go/src/github.com/mailslurper/mailslurper/cmd/mailslurper
@@ -12,10 +12,10 @@ RUN go get
 RUN go generate
 RUN go build
 
-FROM alpine:3.15
+FROM alpine:3.21
 
 RUN apk add --no-cache ca-certificates \
- && echo -e '{\n\
+  && echo -e '{\n\
   "wwwAddress": "0.0.0.0",\n\
   "wwwPort": 8080,\n\
   "wwwPublicURL": "",\n\
