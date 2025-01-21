@@ -81,7 +81,7 @@ func main() {
 	 * Block this thread until we get an interrupt signal. Once we have that
 	 * start shutting everything down
 	 */
-	quit := make(chan os.Signal)
+	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt, syscall.SIGQUIT, syscall.SIGTERM)
 
 	<-quit

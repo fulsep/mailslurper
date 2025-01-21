@@ -9,8 +9,9 @@ import (
 	"sync"
 
 	"github.com/gorilla/sessions"
-	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo-contrib/session"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/mailslurper/mailslurper/cmd/mailslurper/controllers"
 	"github.com/mailslurper/mailslurper/cmd/mailslurper/www"
 	"github.com/mailslurper/mailslurper/pkg/auth/authscheme"
@@ -37,6 +38,8 @@ func setupAdminListener() {
 	admin = echo.New()
 	admin.HideBanner = true
 	admin.Renderer = renderer
+
+	admin.Use(middleware.CORS())
 
 	assetHandler := http.FileServer(www.FS(DEBUG_ASSETS))
 	admin.GET("/www/*", echo.WrapHandler(assetHandler))
