@@ -1,4 +1,5 @@
-FROM golang:1.22.11-alpine3.21 AS builder
+ARG ARCH=
+FROM ${ARCH}golang:1.22.11-alpine3.21 AS builder
 
 LABEL maintainer="erguotou525@gmail.compute"
 
@@ -12,7 +13,8 @@ RUN go get
 RUN go generate
 RUN go build
 
-FROM alpine:3.21
+ARG ARCH=
+FROM ${ARCH}alpine:3.21
 
 RUN apk add --no-cache ca-certificates \
   && echo -e '{\n\
